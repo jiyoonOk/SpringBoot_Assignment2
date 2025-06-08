@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - Welcome</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body class="d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-container p-5">
+                    <!-- Header -->
+                    <div class="login-header text-center mb-4">
+                        <h1 class="login-brand mb-3">환영합니다</h1>
+                        <p class="mb-0">계정에 로그인하여 계속 진행하세요</p>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div>
+                            <strong>로그인 실패!</strong> 이메일 또는 비밀번호가 올바르지 않습니다.
+                        </div>
+                    </div>
+
+                    <!-- Success Alert (회원가입 성공) -->
+                    <div th:if="${param.success}" class="alert alert-success d-flex align-items-center mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div>
+                            <strong>회원가입 성공!</strong> 새로운 계정이 생성되었습니다. 로그인해주세요.
+                        </div>
+                    </div>
+
+                    <!-- Logout Success Alert -->
+                    <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div>
+                            <strong>로그아웃 완료!</strong> 성공적으로 로그아웃되었습니다.
+                        </div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form action="login" th:action="@{/login}" method="post">
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+                                <div class="form-floating">
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="id-email" 
+                                           name="username" 
+                                           placeholder="name@example.com" 
+                                           required>
+                                    <label for="id-email">이메일 주소</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text border-end-0">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+                                <div class="form-floating">
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="id-password" 
+                                           name="password" 
+                                           placeholder="Password" 
+                                           required>
+                                    <label for="id-password">비밀번호</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Login Button -->
+                        <div class="d-grid mb-3">
+                            <button class="btn btn-primary btn-lg btn-login" type="submit">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
+                                로그인
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Forgot Password -->
+                    <div class="text-center">
+                        <a href="#" 
+                           class="forgot-password-link small" 
+                           onclick="alert('비밀번호 재설정 기능은 준비 중입니다.'); return false;">
+                            <i class="bi bi-question-circle me-1"></i>
+                            비밀번호를 잊으셨나요?
+                        </a>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center mb-3">
+                        <a th:href="@{/signup}" 
+                           class="forgot-password-link">
+                            <i class="bi bi-person-plus me-1"></i>
+                            계정이 없으신가요? 회원가입하기
+                        </a>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4 text-muted">
+
+                    <!-- Additional Info -->
+                    <div class="text-center">
+                        <small class="text-muted">
+                            <i class="bi bi-shield-check me-1"></i>
+                            안전하고 보안된 로그인
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <!-- 회원가입 성공 팝업 -->
+    <script th:if="${param.success}">
+        window.onload = function() {
+            alert('🎉 회원가입이 성공적으로 완료되었습니다!\n환영합니다! 이제 로그인해주세요.');
+        };
+    </script>
+</body>
+</html>
